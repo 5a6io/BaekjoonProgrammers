@@ -1,7 +1,5 @@
 #include <iostream>
-#include <algorithm>
 #include <vector>
-#include <cstdlib>
 using namespace std;
 
 bool isPrime(int n){
