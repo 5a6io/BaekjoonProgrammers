@@ -10,14 +10,12 @@ vector<int> solution(string s) {
     
     for(int i = 0; i < s.size(); i++){
         auto it = str.find(s[i]);
-        if(it != str.end()){
+        if(it != str.end())
             answer.push_back(i - it->second);
-            it->second = i;
-        }
-        else{
-            str.insert({s[i], i});
+        else
             answer.push_back(-1);
-        }
+        
+        str[s[i]] = i;
     }
     
     return answer;
