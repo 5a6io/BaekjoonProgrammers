@@ -17,6 +17,8 @@ int solution(int k, vector<vector<int>> dungeons) {
                 current_k -= i[1];
                 count++;
             }
+            else
+                break;
         }
         answer = max(answer, count);
     }while (next_permutation(dungeons.begin(), dungeons.end()));
