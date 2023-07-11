@@ -15,13 +15,10 @@ void backtracking() {
         return;
     }
 
-    vector<bool> visit(n+1, false);
     for (int i = 1; i <= n; i++) {
-        if (!visit[i] && find(result.begin(), result.end(), i) == result.end()) {
-            visit[i] = true;
+        if (find(result.begin(), result.end(), i) == result.end()) {
             result.push_back(i);
             backtracking();
-            visit[i] = false;
             result.pop_back();
         }
     }
