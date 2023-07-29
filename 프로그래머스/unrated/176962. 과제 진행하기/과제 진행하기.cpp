@@ -1,9 +1,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <iostream>
 #include <stack>
-#include <map>
 using namespace std;
 
 bool compare(vector<string> a, vector<string> b){
