@@ -9,7 +9,5 @@ def solution(citations):
     for h in range(len(citations)):
         if citations[h] > h:
             answer += 1
-        else:
-            continue
 
     return answer
