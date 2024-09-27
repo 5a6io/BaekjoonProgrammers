@@ -1,16 +1,22 @@
 import java.util.*;
 
 public class Main {
-    public static void main(String args[]){
-        Scanner s = new Scanner(System.in);
-        int n = s.nextInt();
-        String a = s.next();
-        int sum = 0;
 
-        for(int i = 0; i < n; i++){
-            sum += (a.charAt(i)-'0');
+    static int n;
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        n = sc.nextInt();
+        String num = sc.next();
+        char[] cNum = num.toCharArray();
+
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            sum += cNum[i] - '0';
         }
 
-        System.out.print(sum);
+        System.out.println(sum);
     }
 }
