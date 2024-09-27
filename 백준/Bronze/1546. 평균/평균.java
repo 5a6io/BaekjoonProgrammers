@@ -16,18 +16,14 @@ public class Main {
         }
 
         float m = 0;
+        float sum = 0;
         for (int i = 0; i < n; i++) {
             if (score[i] > m) {
                 m = score[i];
             }
-        }
-
-        float sum = 0;
-        for (int i = 0; i < n; i++) {
-            score[i] = score[i] / m * 100;
             sum += score[i];
         }
-
-        System.out.println(sum / n);
+        
+        System.out.println(sum * 100.0/ m / n);
     }
 }
