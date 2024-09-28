@@ -4,22 +4,12 @@ class Solution {
     public int[] solution(int[] prices) {
         int[] answer = new int[prices.length];
         
-        Queue<Integer> q = new LinkedList<>();
-        
-        for(int i : prices)
-            q.offer(i);
-        
-        int i = 0;
-        while(!q.isEmpty()){
-            int current = q.poll();
-            
-            for(int x : q){
+        for(int i = 0; i < prices.length; i++)
+            for(int j = i + 1; j < prices.length; j++){
                 answer[i]++;
-                if(current > x) break;
+                if(prices[i] > prices[j])
+                    break;
             }
-            
-            i++;
-        }
         
         return answer;
     }
