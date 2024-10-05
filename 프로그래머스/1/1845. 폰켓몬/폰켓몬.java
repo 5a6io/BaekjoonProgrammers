@@ -8,10 +8,9 @@ class Solution {
         HashSet<Integer> k = new HashSet<>();
         
         for(int i = 0; i < n; i++){
-            if(k.size() < n/2)
-                k.add(nums[i]);
+            k.add(nums[i]);
         }
         
-        return answer = k.size();
+        return answer = Math.min(k.size(), n/2);
     }
 }
