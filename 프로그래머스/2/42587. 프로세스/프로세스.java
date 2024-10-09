@@ -5,12 +5,12 @@ class Solution {
         int answer = 0;
         PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
         
-        for(int n : priorities)
-            pq.add(n);
+        for(int i : priorities)
+            pq.add(i);
         
         while(!pq.isEmpty()){
             for(int i = 0; i < priorities.length; i++){
-                if(priorities[i] == pq.peek()){
+                if(pq.peek() == priorities[i]){
                     pq.poll();
                     answer++;
                     if(i == location)
@@ -18,6 +18,7 @@ class Solution {
                 }
             }
         }
+        
         return answer;
     }
 }
