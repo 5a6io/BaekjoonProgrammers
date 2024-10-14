@@ -14,6 +14,6 @@ class Solution {
             }
         }
         
-        return answer = Arrays.stream(dp[n - 1]).max().orElse(0);
+        return answer = Arrays.stream(dp[n - 1]).max().getAsInt();
     }
 }
