@@ -14,11 +14,14 @@ class Solution {
                 d.put(discount[i + j], d.getOrDefault(discount[i + j], 0) + 1);
             }
             
-            int sign = 0;
-            for(Map.Entry<String, Integer> e : m.entrySet())
-                if(d.containsKey(e.getKey()) && e.getValue() <= d.get(e.getKey())) sign++;
+            boolean sign = true;
+            for(String k : m.keySet())
+                if(d.get(k) != m.get(k)){
+                    sign = false;
+                    break;
+                }
             
-            answer += sign == want.length ? 1 : 0;
+            answer += sign ? 1 : 0;
         }
         
         return answer;
