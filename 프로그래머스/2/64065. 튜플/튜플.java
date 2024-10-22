@@ -4,8 +4,7 @@ class Solution {
     public int[] solution(String s) {
         int[] answer = {};
         
-        s = s.replace('{', '\0').replace('}', '\0');
-        String[] nums = s.split(",");
+        String[] nums = s.replaceAll("[{}]", "").split(",");
         Map<Integer, Integer> m = new HashMap<>();
         
         for(String n : nums){
