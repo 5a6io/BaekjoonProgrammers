@@ -11,26 +11,26 @@ q = deque()
 for i in range(m):
     for j in range(n):
         if boxes[i][j] == 1:
-            q.append((i, j))
+            q.append((i, j, 0))
 
 def bfs():
     res = 0
     while q:
-        y, x = q.popleft()
+        y, x, day = q.popleft()
         for d in dir:
             ny, nx = y + d[0], x + d[1]
             if 0 <= ny < m and 0 <= nx < n:
                 if boxes[ny][nx] == 0:
-                    boxes[ny][nx] = boxes[y][x] + 1
-                    q.append((ny, nx))
+                    boxes[ny][nx] = 1
+                    q.append((ny, nx, day + 1))
+                    res = max(res, day + 1)
 
     for i in range(m):
         for j in range(n):
             if boxes[i][j] == 0:
                 return -1
-            res = max(res, boxes[i][j])
 
-    return res - 1
+    return res
 
 
 print(bfs())
