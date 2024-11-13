@@ -2,6 +2,9 @@ for i in range(10):
     t = int(input())
     codes = list(map(int, input().split()))
 
+    for i in range(8):
+        codes[i] %= 75
+
     sub = 1
     while True:
         if sub > 5:
