@@ -1,6 +1,6 @@
 def palindromic(y, x, s):
     if len(s) == l:
-        if s == "".join(s[-1::-1]):
+        if s == "".join(s[::-1]):
             return 1
         else:
             return 0
@@ -9,7 +9,7 @@ def palindromic(y, x, s):
 
 def t_palindromic(y, x, s):
     if len(s) == l:
-        if s == "".join(s[-1::-1]):
+        if s == "".join(s[::-1]):
             return 1
         else:
             return 0
