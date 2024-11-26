@@ -1,20 +1,24 @@
 def solution(N, number):
-    answer = -1
-    s = [set() for _ in range(8)]
+    if N == number:
+        return 1
     
-    for i, x in enumerate(s, start=1):
-        x.add(int(str(N) * i))
-    for i in range(8):
+    dp = [set() for _ in range(9)]
+    dp[1].add(N)
+    x = N
+    for i in range(2, 9):
+        dp.append(set())
+        x = 10 * x + N
+        dp[i].add(x)
         for j in range(i):
-            for op1 in s[j]:
-                for op2 in s[i-j-1]:
-                    s[i].add(op1 + op2)
-                    s[i].add(op1 - op2)
-                    s[i].add(op1 * op2)
+            for op1 in dp[j]:
+                for op2 in dp[i-j]:
+                    dp[i].add(op1 + op2)
+                    dp[i].add(op1 - op2)
+                    dp[i].add(op1 * op2)
                     if op2 != 0:
-                        s[i].add(op1 // op2)
-        if number in s[i]:
-            answer = i + 1
-            break
-    
-    return answer
+                        dp[i].add(op1 // op2)
+        
+        if number in dp[i]:
+            return i
+        
+    return -1
