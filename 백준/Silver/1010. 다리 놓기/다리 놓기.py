@@ -10,7 +10,10 @@ for _ in range(ts):
     dp[0] = 1
     dp[1] = m
 
-    for i in range(2, n+1):
+    for i in range(2, m//2+1):
         dp[i] = dp[i - 1]*(m-i+1)//i
 
-    print(dp[n])
+    if n > m//2:
+        print(dp[m-n])
+    else:
+        print(dp[n])
