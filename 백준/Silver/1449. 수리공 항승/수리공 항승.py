@@ -5,7 +5,6 @@ input = sys.stdin.readline
 n, l = map(int, input().split())
 lack = list(map(int, input().split()))
 lack.sort()
-blocked = [False]*n
 
 s = lack[0] - 0.5
 e = s + l
