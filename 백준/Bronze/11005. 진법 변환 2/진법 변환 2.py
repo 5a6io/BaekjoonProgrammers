@@ -1,16 +1,12 @@
+import sys
+
+input = sys.stdin.readline
+
 N, B = map(int, input().split())
-s = []
+res = ''
+dic = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 while N > 0:
     N, m = divmod(N, B)
-    s.append(m)
+    res += dic[m]
 
-res = ""
-dic = dict(zip(range(10, 36), "ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
-while s:
-    cur = s.pop()
-    if cur >= 10:
-        res += dic[cur]
-    else:
-        res += str(cur)
-
-print(res)
+print(res[::-1])
