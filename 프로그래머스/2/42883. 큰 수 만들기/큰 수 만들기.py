@@ -1,23 +1,15 @@
 def solution(number, k):
-    num = list(number)
-    stack = []
+    answer = ''
     
-    l = len(num) - k
-
-    for i in range(len(num)):
-        while k > 0 and stack and stack[-1] < num[i]:
-            stack.pop()
+    num = []
+    for n in number:
+        while len(num) > 0 and num[-1] < n and k > 0:
+            num.pop()
             k -= 1
-            
-        if k == 0:
-            stack += num[i:]
-            break
-
-        stack.append(num[i])
-
-    if len(stack) > l:
-        stack = stack[:l]
-
-    answer = ''.join(stack)
+        num.append(n)
     
-    return answer
+    while k > 0 and num[-2] > num[-1]:
+        num.pop()
+        k -= 1
+    
+    return answer.join(num)
