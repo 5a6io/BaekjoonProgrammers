@@ -2,16 +2,14 @@ import sys
 
 input = sys.stdin.readline
 
-n = int(input())
-lengths = list(map(int, input().split()))
-prices = list(map(int, input().split()))
-dp = [0] * (n - 1)
-dp[0] = lengths[0] * prices[0]
+N = int(input())
+distance = list(map(int, input().split()))
+gas = list(map(int, input().split()))
 
-minCost = prices[0]
-for i in range(1, n - 1):
-    if minCost > prices[i]:
-        minCost = prices[i]
-    dp[i] = dp[i - 1] + minCost * lengths[i]
+res = distance[0] * gas[0] # 다음 도시로 가기 위해서는 첫 도시에서 무조건 기름을 넣어야 함.
+mn = gas[0]
+for i in range(1, N - 1): # 마지막 주유소에서는 기름을 안 채움.
+    mn = min(mn, gas[i])
+    res += mn * distance[i]
 
-print(dp[n - 2])
+print(res) # 2 * 5 + 2 * (3 + 1) = 18
