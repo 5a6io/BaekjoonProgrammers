@@ -21,7 +21,6 @@ def dfs(u):
     cnt += 1
     for v in graph[u]:
         if not visited[v]:
-            visited[v] = True
             dfs(v)
 
 dfs(R)
