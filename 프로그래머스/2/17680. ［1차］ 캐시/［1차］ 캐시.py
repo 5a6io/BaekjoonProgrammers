@@ -2,7 +2,7 @@ from collections import deque
 
 def solution(cacheSize, cities):
     answer = 0
-    cache = deque(list(), cacheSize)
+    cache = deque(maxlen=cacheSize)
     
     for c in cities:
         city = c.lower()
