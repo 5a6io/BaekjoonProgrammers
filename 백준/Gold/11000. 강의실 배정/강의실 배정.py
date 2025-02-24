@@ -5,7 +5,7 @@ input = sys.stdin.readline
 
 N = int(input())
 rooms = [list(map(int, input().split())) for _ in range(N)]
-rooms.sort(key=lambda x: (x[0], x[1]))
+rooms.sort()
 
 q = [rooms[0][1]]
 for i in range(1, N):
