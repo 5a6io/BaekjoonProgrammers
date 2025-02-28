@@ -13,14 +13,11 @@ bags.sort()
 temp = []
 res = 0
 for b in bags:
-    while jewelry:
-        if jewelry[0][0] <= b:
-            heappush(temp, (-jewelry[0][1], jewelry[0][0]))
-            heappop(jewelry)
-        else:
-            break
-
+    while jewelry and jewelry[0][0] <= b:
+        heappush(temp, -heappop(jewelry)[1])
     if temp:
-        res += -heappop(temp)[0]
+        res += -heappop(temp)
+    elif not jewelry:
+        break
 
 print(res)
