@@ -14,7 +14,7 @@ q = deque()
 def bfs(y, x):
     q.append((y, x))
     board[y][x] = 0
-    
+
     while q:
         y, x = q.popleft()
 
