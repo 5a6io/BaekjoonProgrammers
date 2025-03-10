@@ -30,8 +30,6 @@ for y in range(n):
     for x in range(m):
         if board[y][x] > 0 and not visited[y][x]:
             print(-1, end=' ')
-        elif board[y][x] == 0:
-            print(0, end=' ')
         else:
             print(visited[y][x], end=' ')
     print()
