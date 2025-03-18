@@ -6,7 +6,7 @@ T = int(input())
 
 for t in range(T):
     N, M = map(int, input().split())
-    D = list(zip(list(map(int, input().split())), range(N)))
+    D = [(x, y) for x, y in zip(list(map(int, input().split())), range(N))]
     cnt = 1
     while D:
         mx = max(D)[0]
