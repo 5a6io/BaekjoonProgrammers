@@ -1,4 +1,4 @@
-dic = {0:"0", 1:"1", 2:"2", 3:"3", 4:"4", 5:"5", 6:"6", 7:"7", 8:"8", 9:"9", 10: "A", 11:"B", 12:"C", 13:"D", 14:"E", 15:"F"}
+dic = list('0123456789ABCDEF')
 
 def find_n(num, n):
     res = ""
@@ -9,20 +9,14 @@ def find_n(num, n):
         num //= n
 
     res += dic[num]
-    return "".join(reversed(res))
+    return "".join(res[::-1])
 
 
 def solution(n, t, m, p):
     answer = ""
-    temp = ""
-    for i in range(t*m):
-        if len(temp) > t*m:
-            break
-        temp += find_n(i, n)
+    i = 0
+    while len(answer) < t*m:
+        answer += find_n(i, n)
+        i += 1
     
-    for i in range(t):
-        if len(answer) > t:
-            break
-        answer += temp[p-1+i*m]
-        
-    return answer
+    return answer[p-1::m][:t]
