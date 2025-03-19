@@ -1,6 +1,5 @@
 import sys
 from collections import defaultdict
-sys.setrecursionlimit(1000000)
 
 input = sys.stdin.readline
 
@@ -9,7 +8,6 @@ nodes = list(map(int, input().split()))
 remove = int(input())
 tree = defaultdict(list)
 visited = [False] * N
-root = 0
 
 def dfs(r):
     visited[r] = True
