@@ -3,28 +3,29 @@ from collections import defaultdict
 
 def solution(fees, records):
     answer = []
-    fee = []
-    cars = defaultdict(list)
+    out_cars = defaultdict(int)
+    in_cars = defaultdict(int)
+    costs = []
 
     for record in records:
-        r = record.split(" ")
-        cars[r[1]].append(r[0])
-
-    for car in cars:
-        if len(cars[car]) % 2 != 0:
-            cars[car].append("23:59")
-
-        m = 0
-        for i in range(0, len(cars[car]), 2):
-            ih, im = cars[car][i].split(":")
-            oh, om = cars[car][i + 1].split(":")
-            m += (int(oh) - int(ih)) * 60 + int(om) - int(im)
-        if m <= fees[0]:
-            fee.append((car, fees[1]))
+        time, num, io = record.split()
+        h, m = map(int, time.split(":"))
+        if io == "OUT":
+            out_cars[num] += (h * 60 + m - in_cars[num])
+            in_cars.pop(num)
         else:
-            fee.append((car, fees[1] + math.ceil((m - fees[0])/fees[2]) * fees[3]))
+            in_cars[num] = h * 60 + m
 
-    for f in sorted(fee, key=lambda x: x[0]):
-        answer.append(f[1])
+    for car in in_cars:
+        out_cars[car] += (1439 - in_cars[car])
+
+    for car in out_cars:
+        if out_cars[car] <= fees[0]:
+            costs.append((car, fees[1]))
+        else:
+            costs.append((car, fees[1] + math.ceil((out_cars[car] - fees[0]) / fees[2]) * fees[3]))
+
+    for cost in sorted(costs, key=lambda x: x[0]):
+        answer.append(cost[1])
 
     return answer
