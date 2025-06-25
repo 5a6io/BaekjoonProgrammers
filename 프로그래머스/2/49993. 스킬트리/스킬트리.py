@@ -1,6 +1,5 @@
 def solution(skill, skill_trees):
     answer = 0
-    comb = []
     
     for skills in skill_trees:
         sk = list(skill)
