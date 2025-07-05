@@ -17,9 +17,8 @@ for tc in range(10):
                 elif b == '>' and st[-1] == '<':
                     st.pop()
                 else:
+                    print(f"#{tc+1} 0")
                     break
 
-    if st:
-        print(f"#{tc+1} 0")
     else:
         print(f"#{tc+1} 1")
