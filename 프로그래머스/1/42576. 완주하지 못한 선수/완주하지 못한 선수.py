@@ -12,4 +12,4 @@ def solution(participant, completion):
         else:
             dic.pop(c)
     
-    return "".join(dic.keys())
+    return list(dic.keys())[0]
