@@ -8,7 +8,7 @@ def solution(clothes):
         else:
             dic[kind] += 1
     
-    for k in dic.keys():
-        answer = answer * (dic[k] + 1)
+    for k in dic.values():
+        answer *= k + 1
     
     return answer - 1
