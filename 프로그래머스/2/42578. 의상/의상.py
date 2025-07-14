@@ -1,11 +1,14 @@
 def solution(clothes):
     answer = 1
-    type = {}
-
-    for i in clothes:
-        type[i[1]] = type.get(i[1], 0)+1
-
-    for i in type.values():
-        answer *= (i+1)
-
+    
+    dic = dict()
+    for cloth, kind in clothes:
+        if kind not in dic:
+            dic[kind] = 1
+        else:
+            dic[kind] += 1
+    
+    for k in dic.keys():
+        answer = answer * (dic[k] + 1)
+    
     return answer - 1
