@@ -1,12 +1,12 @@
 def solution(sizes):
+    answer = 0
     for size in sizes:
-        size.sort()
-    sizes.sort(reverse=True)
+        size.sort(reverse=True)
+    
+    sizes.sort(key=lambda x: -x[0])
     
     w = sizes[0][0]
-    h = sizes[0][1]
-    for i in range(len(sizes)):
-        if h < sizes[i][1]:
-            h = sizes[i][1]
-    
-    return w*h
+    for _, h in sizes:
+        answer = max(answer, w*h)
+               
+    return answer
