@@ -1,7 +1,5 @@
 T = int(input())
 
-dy=[1, -1, 0, 0]
-dx=[0, 0, 1, -1]
 def dfs(y, x, res):
     global nums
     if len(res) == 7:
@@ -9,10 +7,11 @@ def dfs(y, x, res):
             nums.add(res)
         return
 
-    for i in range(4):
-        ny, nx = y+dy[i], x+dx[i]
-        if 0 <= ny < 4 and 0 <= nx < 4:
-            dfs(ny, nx, res + board[y][x])
+    if 0 <= y < 4 and 0 <= x < 4:
+        dfs(y + 1, x, res + board[y][x])
+        dfs(y - 1, x, res + board[y][x])
+        dfs(y, x + 1, res + board[y][x])
+        dfs(y, x - 1, res + board[y][x])
 
 
 for tc in range(1, T + 1):
