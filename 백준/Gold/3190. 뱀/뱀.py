@@ -1,43 +1,44 @@
 import sys
 from collections import deque
-
 input = sys.stdin.readline
+n = int(input())
+k = int(input())
+maps = [[0] * (n+1) for _ in range(n+1)]
+for _ in range(k):#사과의 위치
+    x,y = map(int,input().split())
+    maps[x][y] = 2
+info = {}
+l = int(input())
+for _ in range(l):# 뱀의 방향변환정보 (초, 방향 L:왼쪽 D:오른쪽)
+    sec, direct = input().split()
+    info[int(sec)] = direct
+time = 0
+dx = [1,0,-1,0]
+dy = [0,1,0,-1]
+x, y = 1, 1
+maps[y][x] = 1
+d = 0
+snakes = deque([(1, 1)])
 
-N = int(input())
-K = int(input())
-apples = [list(map(int, input().split())) for _ in range(K)]
-L = int(input())
-turns = deque([input().split() for _ in range(L)]) # X초가 끝난 뒤에 뱀이 C 방향으로 90도 회전.
-# 방향 전환 D = 오른쪽, L = 왼쪽
-rotate = {'D': 1, 'L': -1}
-# 북, 동, 남, 서
-dy = [-1, 0, 1, 0]
-dx = [0, 1, 0, -1]
-
-def OutOfRange(y, x):
-    return False if 0 < y <= N and 0 < x <= N else True
-
-def game(y, x, d):
-    t = 0
-    move = deque([(y, x)])
-    while True:
-        ny, nx = y + dy[d], x + dx[d]
-        if OutOfRange(ny, nx) or (ny, nx) in move: # 범위를 벗어나면 멈춤.
-            break
-
-        if [ny, nx] not in apples: # 사과가 없다면 꼬리 제거
-            move.popleft()
-        else: # 사과가 있으면 사과 제거
-            apples.remove([ny, nx])
-            
-        y, x = ny, nx
-        move.append((ny, nx))
-        t += 1
-
-        if turns and t == int(turns[0][0]):
-            turn = turns.popleft()[1]
-            d = (d + rotate[turn]) % 4 # 왼쪽 또는 오른쪽으로 90도 회전.
-
-    return t+1
-
-print(game(1, 1, 1)) # 오른쪽으로 향한다고 하였으므로 방향을 1로 함.
+while True:
+    nx, ny = x+dx[d], y+dy[d]
+    # 뱀의 몸통에 닿거나 벽에 부딪히는 경우 종료
+    if nx<=0 or ny<=0 or nx>n or ny>n or (nx,ny) in snakes:
+        break
+    # 사과를 먹지 못하면 꼬리 없애기
+    if maps[ny][nx]!=2:
+        a,b = snakes.popleft()
+        maps[b][a]=0
+    x, y = nx, ny
+    maps[y][x] = 1
+    snakes.append((nx, ny))
+    time+=1
+	
+    # 시간에 해당하는 방향전환 정보가 있을 경우
+    if time in info.keys():
+        if info[time] == "D":
+            d = (d+1)%4
+        else:
+            nd = 3 if d==0 else d-1
+            d = nd
+print(time+1)
