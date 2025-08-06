@@ -1,52 +1,52 @@
 import sys
-import copy
 from collections import deque
 
 input = sys.stdin.readline
 N, M = map(int, input().split()) # N = 세로, M = 가로
 labs = [list(map(int, input().split())) for _ in range(N)]
-# 상 하 좌 우
-dy = [-1, 1, 0, 0]
-dx = [0, 0, -1, 1]
 
-def bfs():
-    global ans
-    virus = copy.deepcopy(labs) # 기존 배열의 변경이 복사본에 영향을 주지 않도록 하기 위해 깊은 복사를 함.
+def bfs(walls):
+    # 선택한 위치에 벽 세우기
+    for y, x in walls:
+        labs[y][x] = 1
 
-    q = deque()
-    for y in range(N):
-        for x in range(M):
-            if virus[y][x] == 2:
-                q.append((y, x))
+    q = deque(virus)
+    res = CNT - 3  # 벽 세운 개수를 빼고 남은 빈 칸
+    visit = [[1 if (y, x) in virus else 0 for x in range(M)] for y in range(N)]
 
     while q:
         y, x = q.popleft()
 
-        for i in range(4):
-            ny, nx = y + dy[i], x + dx[i]
-            if 0 <= ny < N and 0 <= nx < M:
-                if virus[ny][nx] == 0:
-                    virus[ny][nx] = 2
-                    q.append((ny, nx))
+        for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+            ny, nx = y + dy, x + dx
+            if 0 <= ny < N and 0 <= nx < M and visit[ny][nx] == 0 and labs[ny][nx] == 0:
+                q.append((ny, nx))
+                visit[ny][nx] = 1
+                res -= 1
 
-    res = 0
-    for i in range(N):
-        res += virus[i].count(0)
-    ans = max(res, ans)
+    for y, x in walls:
+        labs[y][x] = 0
 
+    return res
 
-def backtraking(w):
-    if w == 3: # 벽을 세 개 세운 후 안전 지대 넓이 확인
-        bfs()
-        return
-
-    for y in range(N):
-        for x in range(M):
-            if labs[y][x] == 0:
-                labs[y][x] = 1
-                backtraking(w+1)
-                labs[y][x] = 0
 
 ans = 0
-backtraking(0)
+empty = []
+virus = []
+
+# 비어있는 곳과 바이러스가 있는 곳 탐색
+for y in range(N):
+    for x in range(M):
+        if labs[y][x] == 0:
+            empty.append((y, x))
+        elif labs[y][x] == 2:
+            virus.append((y, x))
+
+# 비어있는 곳 중 한 곳을 벽을 세울 세 곳 선택
+CNT = len(empty)
+for i in range(CNT-2):
+    for j in range(i+1, CNT-1):
+        for k in range(j+1, CNT):
+            ans = max(bfs([empty[i], empty[j], empty[k]]), ans)
+
 print(ans)
