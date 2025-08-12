@@ -3,5 +3,6 @@ import sys
 input = sys.stdin.readline
 
 N = int(input())
+dp = ["CY", "SK"]
 
-print("SK" if N%2 == 1 else "CY") 
+print(dp[N%2]) 
