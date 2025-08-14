@@ -13,12 +13,9 @@ def bellmanford(v):
             if dist[a-1] != INF and dist[b-1] > dist[a-1] + c:
                 dist[b-1] = dist[a-1] + c
                 if v == N-1:
-                    return True
-
-    return False
-
-if bellmanford(0):
-    print(-1)
-else:
+                    print(-1)
+                    return
     for v in range(1, N):
         print(dist[v] if dist[v] != INF else -1)
+
+bellmanford(0)
