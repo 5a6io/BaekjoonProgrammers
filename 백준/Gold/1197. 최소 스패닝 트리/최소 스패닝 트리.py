@@ -1,30 +1,30 @@
 import sys
 
 input = sys.stdin.readline
-sys.setrecursionlimit(10**6)
+INF = 1e9
 
 V, E = map(int, input().split())
-edges = [list(map(int, input().split())) for _ in range(E)]
-parent = list(range(V))
-edges.sort(key= lambda x: x[2])
-cost = 0
+graph = [[] for _ in range(V)]
 
-def find(x): # 특정 원소가 어느 그룹에 속하는지 찾기.
-    if parent[x] == x:
-        return x
-    parent[x] = find(parent[x])
-    return parent[x]
+for _ in range(E):
+    a, b, c = map(int, input().split())
+    graph[a-1].append((b-1, c))
+    graph[b-1].append((a-1, c))
 
-def union(a, b): # 두 그룹을 하나로 합치기.
-    a, b = find(a), find(b)
-    if a > b:
-        parent[a] = b
-    else:
-        parent[b] = a
+visited = [0] * V
+dist = [INF] * V
+dist[0] = 0
 
-for a, b, c in edges:
-    if find(a - 1) != find(b - 1):
-        union(a - 1, b - 1)
-        cost += c
+for _ in range(V):
+    mn = INF
+    b = -1
+    for v in range(V):
+        if not visited[v] and dist[v] < mn:
+            mn = dist[v]
+            b = v
+    visited[b] = 1
+    for u, c in graph[b]:
+        if not visited[u]:
+            dist[u] = min(dist[u], c)
 
-print(cost)
+print(sum(dist))
