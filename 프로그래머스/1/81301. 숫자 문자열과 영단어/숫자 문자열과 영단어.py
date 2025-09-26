@@ -1,15 +1,7 @@
 def solution(s):
-    answer = []
-    dic = dict(zip(["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],"0123456789"))
+    dic = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
     
-    num = ''
-    for c in s:
-        if str.isdigit(c):
-            answer.append(c)
-        else:
-            num += c
-            if num in dic:
-                answer.append(dic[num])
-                num = ''
+    for i in range(10):
+        s = s.replace(dic[i], str(i))
     
-    return int(''.join(answer))
+    return int(s)
