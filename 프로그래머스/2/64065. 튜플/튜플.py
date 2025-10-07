@@ -1,11 +1,10 @@
 def solution(s):
     answer = []
-    l = list(s.strip('{{').strip('}}').split('},{'))
-    l.sort(key=len)
-    for i in range(len(l)):
-        c = list(map(int, l[i].split(',')))
-        for j in range(len(c)):
-            if c[j] not in answer:
-                answer.append(c[j])
+    for l in sorted(list(s.strip('{{').strip('}}').split('},{')), key=len):
+        tmp = list(map(int, l.split(',')))
+        
+        for i in range(len(tmp)):
+            if tmp[i] not in answer:
+                answer.append(tmp[i])
     
     return answer
