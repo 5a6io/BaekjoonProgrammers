@@ -1,12 +1,18 @@
+dic = dict(zip(range(0, 16), '0123456789ABCDEF'))
+
+def trans(a, n):
+    num = ''
+    if a == 0:
+        return '0'
+    while a:
+        num += dic[a%n]
+        a //= n
+    return num[::-1]
+
 def solution(n, t, m, p):
-    answer = '0'
-    dic = dict(zip(range(0, 16), '0123456789ABCDEF'))
-    
-    for i in range(1, t*m):
-        num = ''
-        while i:
-            num += dic[i%n]
-            i //= n
-        answer += num[::-1]
-    
+    answer = ''
+    for i in range(n**m+1):
+        if len(answer) >= t*m:
+            break
+        answer += trans(i, n)
     return answer[p-1:t*m:m]
