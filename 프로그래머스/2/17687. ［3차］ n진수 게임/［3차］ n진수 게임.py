@@ -13,9 +13,7 @@ def trans(a, n):
 def solution(n, t, m, p):
     answer = ''
     
-    for i in range(n**m+1):
-        if len(answer) >= t*m+1:
-            break
+    for i in range(t*m+1):
         answer += trans(i, n)
     
     return answer[p-1:t*m:m]
