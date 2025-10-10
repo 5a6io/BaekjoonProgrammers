@@ -1,20 +1,19 @@
 def solution(n, k):
-    num = ""
+    answer = 0
+    num = ''
     while n:
-        num = str(n%k) + num
+        num += str(n%k)
         n //= k
+    num = num[::-1].split('0')
     
-    num = num.split("0")
-    
-    answer = len(num)
-    for x in num:
-        if x == '' or int(x) == 0 or int(x) == 1:
-            answer -= 1
+    for i in num:
+        if len(i) == 0 or i == '1':
             continue
-        
-        for i in range(2, int(int(x)**0.5)+1):
-            if int(x)%i == 0:
-                answer -= 1
+        # 에라토스테네스의 체 알고리즘
+        for j in range(2, int(int(i)**(1/2))+1):
+            if int(i)%j == 0:
                 break
+        else:
+            answer += 1
     
     return answer
