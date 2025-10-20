@@ -6,16 +6,16 @@ def solution(n, edge):
     dist[0] = 0
     edges = [[] for _ in range(n)]
     for v, u in edge:
-        edges[v-1].append((1, u-1))
-        edges[u-1].append((1, v-1))
+        edges[v-1].append(u-1)
+        edges[u-1].append(v-1)
         
     move = deque([(0, 0)]) # 거리, 정점
     while move:
-        _, v = move.popleft()
+        d, v = move.popleft()
         
-        for d, u in edges[v]:
-            if dist[u] > dist[v]+d:
-                dist[u] = dist[v]+d
+        for u in edges[v]:
+            if dist[u] > dist[v]+1:
+                dist[u] = dist[v]+1
                 move.append((dist[u], u))
                 
     answer = dist.count(max(dist))
