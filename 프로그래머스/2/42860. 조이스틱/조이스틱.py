@@ -1,17 +1,15 @@
 def solution(name):
-    dic = dict(zip("ABCDEFGHIJKLMNOPQRSTUVWXYZ", range(26)))
     answer = 0
-    cursor = len(name) - 1  # 오른쪽 왼쪽 최대 움직임
+    l =len(name)
+    move = l - 1 # 처음부터 끝까지 움직이는 경우
+    for i, n in enumerate(name):
+        answer += min(ord(n) - ord('A'), (ord('Z') - ord(n)) + 1)
     
-    for left in range(len(name)):
-        sub_a = (dic[name[left]] - dic['A']) % 26
-        sub_b = (dic['A'] - dic[name[left]]) % 26
-        answer += min(sub_b, sub_a)
+        next = i + 1
+        while next < l and name[next] == 'A':
+            next += 1
+        move = min([move, 2*i + len(name) - next, i + 2*(l - next)])
+                
+    answer += move
         
-        idx = left + 1
-        while idx < len(name) and name[idx] == 'A': idx += 1
-        right = len(name) - idx
-        move = min(left, len(name) - right)
-        cursor = min(cursor, left + right + min(left, right))        
-    
-    return answer + cursor
+    return answer
