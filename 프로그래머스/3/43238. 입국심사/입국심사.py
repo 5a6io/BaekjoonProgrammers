@@ -1,6 +1,6 @@
 def solution(n, times):
     answer = 0
-    s, e = 1, n*max(times)
+    s, e = 1, n*min(times)
     while s <= e:
         m = (s + e) // 2
         p = 0
