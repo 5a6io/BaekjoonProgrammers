@@ -1,6 +1,6 @@
-select concat('/home/grep/src/', BOARD_ID, '/', FILE_ID, FILE_NAME, FILE_EXT) as FILE_PATH
-from USED_GOODS_FILE
-where BOARD_ID = (select BOARD_ID
-                 from USED_GOODS_BOARD
-                 order by VIEWS desc limit 1)
-order by FILE_PATH desc
+select concat("/home/grep/src/", board_id, "/", file_id, file_name, file_ext) as file_path
+from used_goods_file
+where board_id = (select board_id
+              from used_goods_board
+              order by views desc limit 1)
+order by file_id desc
