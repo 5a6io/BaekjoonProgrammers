@@ -1,4 +1,4 @@
-select substring(product_code, 1, 2) as category, count(substring(product_code, 1, 2)) as products
+select substr(product_code, 1, 2) as category, count(product_id) as products
 from product
-group by substring(product_code, 1, 2)
+group by substr(product_code, 1, 2)
 order by category
