@@ -1,17 +1,17 @@
--- 코드를 작성해주세요
-WITH RECURSIVE GEN AS (
-    SELECT ID, PARENT_ID, 1 AS G
-    FROM ECOLI_DATA
-    WHERE PARENT_ID IS NULL
+with recursive generation as (
+    select id, parent_id, 1 as generation
+    from ecoli_data
+    where parent_id is null
     
-    UNION ALL
+    union all
     
-    SELECT A.ID, A.PARENT_ID, G + 1
-    FROM ECOLI_DATA A JOIN GEN ON GEN.ID = A.PARENT_ID
+    select e.id, e.parent_id, generation+1 as generation
+    from ecoli_data e
+    join generation g on e.parent_id = g.id
 )
 
-SELECT COUNT(*) AS COUNT, G AS GENERATION
-FROM GEN G LEFT OUTER JOIN ECOLI_DATA E ON G.ID = E.PARENT_ID
-WHERE E.ID IS NULL
-GROUP BY GENERATION
-ORDER BY GENERATION ASC
+select count(*) as count, generation
+from generation
+where id not in (select distinct(parent_id) from generation where parent_id is not null)
+group by generation
+order by generation
