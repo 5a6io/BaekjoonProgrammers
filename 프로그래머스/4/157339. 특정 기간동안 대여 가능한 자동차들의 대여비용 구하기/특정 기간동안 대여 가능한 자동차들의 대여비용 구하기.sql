@@ -1,7 +1,8 @@
-select distinct CAR_ID, C.CAR_TYPE, round(DAILY_FEE*30*(100-DISCOUNT_RATE)/100) as FEE
-from CAR_RENTAL_COMPANY_CAR C join CAR_RENTAL_COMPANY_DISCOUNT_PLAN P on C.CAR_TYPE = P.CAR_TYPE
-where C.CAR_TYPE in ('세단','SUV') and CAR_ID not in (select CAR_ID
-                    from CAR_RENTAL_COMPANY_RENTAL_HISTORY
-                    where '2022-11' between date_format(START_DATE, "%Y-%m") and date_format(END_DATE, "%Y-%m"))
-      and DURATION_TYPE like '30%' and DAILY_FEE*30*(100-DISCOUNT_RATE)/100 between 500000 and 2000000
-order by FEE desc, C.CAR_TYPE, CAR_ID desc
+select car_id, c.car_type, round(30*daily_fee*(100-discount_rate) / 100) as fee
+from car_rental_company_car c left join (select car_type, discount_rate
+                                      from car_rental_company_discount_plan
+                                      where duration_type = '30일 이상') r on c.car_type = r.car_type
+where car_id not in (select car_id
+                     from car_rental_company_rental_history
+                     where '2022-11-01' <= end_date and start_date <= '2022-11-30') and (c.car_type = '세단' or c.car_type = 'SUV') and 500000 <= 30*daily_fee*(100-discount_rate) / 100 and 30*daily_fee*(100-discount_rate) / 100 < 2000000
+order by fee desc, c.car_type, car_id desc
