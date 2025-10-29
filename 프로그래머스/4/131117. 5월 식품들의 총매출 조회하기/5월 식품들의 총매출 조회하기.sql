@@ -1,5 +1,5 @@
-select P.PRODUCT_ID, PRODUCT_NAME, sum(AMOUNT*PRICE) as TOTAL_SALES
-from FOOD_PRODUCT P left outer join FOOD_ORDER O on P.PRODUCT_ID = O.PRODUCT_ID
-where PRODUCE_DATE between '2022-05-01' and '2022-05-31'
-group by P.PRODUCT_ID
-order by TOTAL_SALES desc, PRODUCT_ID
+select p.product_id, product_name, price * sum(amount) as total_sales
+from food_product p left join food_order o on p.product_id = o.product_id
+where year(produce_date) = 2022 and month(produce_date) = 5
+group by o.product_id
+order by total_sales desc, p.product_id
