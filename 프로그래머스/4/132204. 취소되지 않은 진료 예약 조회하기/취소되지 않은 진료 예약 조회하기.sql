@@ -1,5 +1,4 @@
-select APNT_NO, PT_NAME, A.PT_NO, MCDP_CD, DR_NAME, APNT_YMD
-from APPOINTMENT A inner join PATIENT P on A.PT_NO = P.PT_NO left join (select DR_NAME, DR_ID
- from DOCTOR) D on MDDR_ID = D.DR_ID
- where DATE_FORMAT(APNT_YMD, '%Y-%m-%d') = '2022-04-13' and APNT_CNCL_YN = 'N' and MCDP_CD = 'CS'
-order by APNT_YMD
+select apnt_no, pt_name, a.pt_no, a.mcdp_cd, dr_name, apnt_ymd
+from appointment a join doctor d on a.mddr_id = d.dr_id join patient p on p.pt_no = a.pt_no
+where date_format(apnt_ymd, '%Y-%m-%d') = '2022-04-13' and apnt_cncl_yn = 'N'
+order by apnt_ymd
