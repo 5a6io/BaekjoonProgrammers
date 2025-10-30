@@ -1,20 +1,20 @@
-with FRONT as (
-    select BIT_OR(CODE) as SKILL_CODE
-    from SKILLCODES
-    group by CATEGORY
-    having CATEGORY = 'Front End'
-), DEV as (
-    select
-        case
-            when D.SKILL_CODE & F.SKILL_CODE
-                and D.SKILL_CODE & (select CODE from SKILLCODES where NAME = 'Python') then 'A'
-            when D.SKILL_CODE & (select CODE from SKILLCODES where NAME = 'C#') then 'B'
-            when D.SKILL_CODE & F.SKILL_CODE then 'C'
-            else NULL
-        end as GRADE, ID, EMAIL
-    from DEVELOPERS D, FRONT F)
+with developers as(
+    select (case
+       when skill_code&(select code
+                       from skillcodes
+                       where name='Python') and skill_code&(select sum(code)
+                                                           from skillcodes
+                                                           where category='Front End') then 'A'
+       when skill_code&(select code
+                       from skillcodes
+                       where name='C#') then 'B'
+       when skill_code&(select sum(code)
+                                    from skillcodes
+                                    where category='Front End') then 'C' end) as grade, id, email
+    from developers
+)
 
-select GRADE, ID, EMAIL
-from DEV
-where GRADE IS NOT NULL
-order by GRADE, ID
+select *
+from developers
+where grade is not null
+order by grade, id
