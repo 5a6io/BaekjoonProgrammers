@@ -1,9 +1,13 @@
-SELECT (CASE
-            WHEN MONTH(DIFFERENTIATION_DATE)<=3 THEN '1Q'
-            WHEN MONTH(DIFFERENTIATION_DATE)<=6 THEN '2Q'
-            WHEN MONTH(DIFFERENTIATION_DATE)<=9 THEN '3Q'
-            ELSE '4Q'
-        END) AS QUARTER, COUNT(ID) AS ECOLI_COUNT
-FROM ECOLI_DATA
-GROUP BY QUARTER
-ORDER BY QUARTER
+with ecoli_quarter as(
+    select id, (case
+       when month(differentiation_date) < 4 then 1
+       when month(differentiation_date) < 7 then 2
+       when month(differentiation_date) < 10 then 3
+       else 4 end) as quarter
+    from ecoli_data
+)
+
+select concat(quarter, 'Q') as quarter, count(id) as ecoli_count
+from ecoli_quarter
+group by quarter
+order by quarter
