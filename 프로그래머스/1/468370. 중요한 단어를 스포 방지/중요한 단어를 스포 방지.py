@@ -26,7 +26,7 @@ def solution(message, spoiler_ranges):
     for start, end in spoiler_ranges:
         for w, s, e in words:
             if not (e < start or end < s):
-                if w not in unimportant:
+                if w not in unimportant and w not in important:
                     important.add(w)
     
     answer = len(important)
