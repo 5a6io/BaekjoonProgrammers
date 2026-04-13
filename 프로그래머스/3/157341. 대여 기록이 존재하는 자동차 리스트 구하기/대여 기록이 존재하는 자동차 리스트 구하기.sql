@@ -1,4 +1,4 @@
-select distinct(car_id)
+select distinct(car_id) as car_id
 from car_rental_company_rental_history
 where car_id in (select car_id
                 from car_rental_company_car
