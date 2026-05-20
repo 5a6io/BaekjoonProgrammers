@@ -1,21 +1,22 @@
 def solution(distance, rocks, n):
     answer = 0
-    rocks.append(distance)
-    rocks.sort()
+    
     s, e = 0, distance
+    rocks.sort()
+    rocks.append(distance)
+    
     while s <= e:
-        m = (s + e) // 2
-        cr = 0 # 현재 돌
-        cnt = 0 # 제거한 바위 개수
+        mid = (s+e)//2
+        r, p_r = 0, 0
         for rock in rocks:
-            if rock - cr < m:
-                cnt += 1
+            if rock - p_r < mid:
+                r += 1
             else:
-                cr = rock
-        if cnt > n:
-            e = m - 1
+                p_r = rock
+        if r > n:
+            e  = mid-1
         else:
-            s = m + 1
-            answer = m
-        
+            answer = mid
+            s = mid + 1
+    
     return answer
