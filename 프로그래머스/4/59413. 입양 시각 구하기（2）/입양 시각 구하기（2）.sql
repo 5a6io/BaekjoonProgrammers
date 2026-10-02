@@ -1,7 +1,13 @@
-set @TIME := -1;
+-- 코드를 입력하세요
+WITH RECURSIVE HOURS AS (
+    SELECT 0 AS H
+    UNION ALL
+    SELECT H + 1 AS HOUR
+    FROM HOURS
+    WHERE H < 23
+)
 
-select (@TIME := @TIME+1) as TIME, (select count(*)
-                                   from ANIMAL_OUTS
-                                   where hour(DATETIME) = @TIME) as COUNT
-from ANIMAL_OUTS
-where @TIME < 23
+SELECT H AS HOUR, CASE WHEN COUNT(ANIMAL_ID) IS NULL THEN 0 ELSE COUNT(ANIMAL_ID) END AS COUNT
+FROM HOURS LEFT OUTER JOIN ANIMAL_OUTS ON H = HOUR(DATETIME)
+GROUP BY H
+ORDER BY HOUR
